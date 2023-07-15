@@ -1,0 +1,34 @@
+﻿@model MaleFashion.Models.LienHe
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+<div>
+    <h4>Contact</h4>
+    <hr />
+    <table class="table table-striped">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.HoTen)</th>
+            <td>@Html.DisplayFor(model => model.HoTen)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.EMAIL)</th>
+            <td>@Html.DisplayFor(model => model.EMAIL)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.NoiDung)</th>
+            <td>@Html.DisplayFor(model => model.NoiDung)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.NgayGui)</th>
+            <td>@Html.DisplayFor(model => model.NgayGui)</td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaLH }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

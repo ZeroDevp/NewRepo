@@ -1,0 +1,342 @@
+﻿@model PagedList.IPagedList<MaleFashion.Models.SanPham>
+
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Shopping";
+
+}
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Shop</h4>
+                    <div class="breadcrumb__links">
+                        <a href="./index.html">Home</a>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb Section End -->
+
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="shop__sidebar">
+                    <div class="shop__sidebar__search">
+                        @using (Html.BeginForm("Index", "Shop", FormMethod.Get))
+                        {
+                            <input type="text" name="searchString" placeholder="Search..." value="@ViewBag.SearchString" />
+                            <button type="submit"><span class="icon_search"></span></button>
+                        }
+
+                    </div>
+                    <div class="shop__sidebar__accordion">
+                        <div class="accordion" id="accordionExample">
+                            <form method="get" action="@Url.Action("Index")">
+
+
+                                <div class="card">
+                                    <div class="card-heading">
+                                        <a data-toggle="collapse" data-target="#collapseOne">Chủ Đề</a>
+                                    </div>
+                                    <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="shop__sidebar__categories">
+                                                <ul class="nice-scroll">
+                                                    <li><a href="@Url.Action("Index","Shop")">All Categories</a></li>
+                                                    @foreach (var category in ViewBag.Categories)
+                                                    {
+                                                        <li>
+
+                                                            <a href="#" data-category="@category.TenTL" class="@((category.TenTL == ViewBag.Category) ? "selected" : "")">@category.TenTL</a>
+                                                            <input type="checkbox" name="category" value="@category.TenTL" @(category.TenTL == ViewBag.Category ? "checked" : "") style="display: none;">
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="card">
+                                    <div class="card-heading">
+                                        <a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
+                                    </div>
+                                    <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="shop__sidebar__price">
+                                                <input type="hidden" name="minPrice" value="@ViewBag.Min" />
+                                                <input type="hidden" name="maxPrice" value="@ViewBag.Max" />
+                                                <ul>
+                                                    <li>
+                                                        <a href="#" data-min-price="0" data-max-price="10000" class="@((ViewBag.MinPrice == 0 && ViewBag.MaxPrice == 10000) ? "selected" : "")">0₫ - 10.000₫</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" data-min-price="10000" data-max-price="20000" class="@((ViewBag.MinPrice == 10000 && ViewBag.MaxPrice == 20000) ? "selected" : "")">10.000₫ - 20.000₫</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" data-min-price="20000" data-max-price="40000" class="@((ViewBag.MinPrice == 20000 && ViewBag.MaxPrice == 40000) ? "selected" : "")">20.000₫ - 40.000₫</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" data-min-price="40000" data-max-price="60000" class="@((ViewBag.MinPrice == 40000 && ViewBag.MaxPrice == 60000) ? "selected" : "")">40.000₫ - 60.000₫</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" data-min-price="60000" data-max-price="100000" class="@((ViewBag.MinPrice == 60000 && ViewBag.MaxPrice == 100000) ? "selected" : "")">60.000₫ - 100.000₫</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" data-min-price="100000" data-max-price="0" class="@((ViewBag.MinPrice == 100000) ? "selected" : "")">100.000₫ trở lên</a>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="shop__sidebar__btns">
+                                    <a href="@Url.Action("Index")" class="site-btn">Xóa tất cả</a>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="shop__product__option">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__left">
+                                <p>Showing @((ViewBag.PageSize * ViewBag.CurrentPage) - (ViewBag.PageSize - 1)) – @((ViewBag.PageSize * ViewBag.CurrentPage > ViewBag.TotalCount) ? ViewBag.TotalCount : (ViewBag.PageSize * ViewBag.CurrentPage)) of @ViewBag.TotalCount results</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__right">
+                                <p>Sort by Price:</p>
+                                <select class="form-control" onchange="location = this.value;">
+                                    <option value="@Url.Action("Index", new { page = 1, searchString = ViewBag.SearchString, sortBy = "price_asc" })" @(ViewBag.SortBy == "price_asc" ? "selected" : "")>Low to high</option>
+                                    <option value="@Url.Action("Index", new { page = 1, searchString = ViewBag.SearchString, sortBy = "price_desc" })" @(ViewBag.SortBy == "price_desc" ? "selected" : "")>High to low</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <a href="@Url.Action("ShopDetails","Shop", new { id = item.MaSP})" class="product__item__pic set-bg">
+                                    <img src="~/img/product/@item.HinhSP" style="max-height: 263px;" />
+                                </a>
+
+                                <div class="product__item__text">
+                                    <h6>@Html.DisplayFor(modelItem => item.TenSP)</h6>
+                                    <div class="rating">
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    @if (item.GiaBan > 0)
+                                    {
+                                        var priceAfterDiscount = item.GiaBan * (100 - item.GiamGia) / 100;
+                                        if (item.GiamGia != null && item.GiamGia > 0)
+                                        {
+                                            <h5>@priceAfterDiscount.Value.ToString("#,##0 ₫")</h5>
+                                        }
+                                        else
+                                        {
+                                            <h5>@item.GiaBan.ToString("#,##0 ₫")</h5>
+                                        }
+
+
+                                    }
+                                    else
+                                    {
+                                        <h5>Liên hệ</h5>
+                                    }
+                                    <a href="@Url.Action("AddToCart", "Cart")" data-id_product="@item.MaSP" class="addtocart_btn">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product__pagination">
+                            @if (Model.PageCount > 1)
+                            {
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchString, sortBy = ViewBag.SortBy }),
+                                    new PagedListRenderOptions
+                                    {
+                                        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+                                        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+
+                                        LinkToPreviousPageFormat = " &#8592; ",
+                                        LinkToNextPageFormat = " &#8594; ",
+
+                                        ClassToApplyToFirstListItemInPager = "page-item",
+                                        ClassToApplyToLastListItemInPager = "page-item",
+                                        LinkToFirstPageFormat = "&#171;",
+                                        LinkToLastPageFormat = "&#187;",
+                                        MaximumPageNumbersToDisplay = 3,
+                                        DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+                                        EllipsesFormat = "...",
+                                        ContainerDivClasses = new[] { "jcenter" },
+                                        UlElementClasses = new[] { "pagination", "justify-content-center" },
+                                        LiElementClasses = new[] { "page-item" },
+
+                                    })
+                            }
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Style{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style>
+        .selected {
+            color: #000 !important;
+            font-weight: bold;
+        }
+    </style>
+
+}
+
+@section Scripts{
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>*@
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $(".addtocart_btn").off('click').on("click", function (e) {
+            e.preventDefault();
+            var model = {};
+            //lấy id sản phẩm
+            model.Id = parseInt($(this).data('id_product'));
+            // lấy số lượng đặt hàng
+            model.Quantity = 1;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddToCart", "Cart")',
+                data: {
+                    id: model.Id,
+                    Quantity: model.Quantity
+                },
+                dataType: "json",
+                success: function () {
+
+                    $('#CartCount').text(@Session["count"] + 1);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thêm giỏ hàng thành công!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi trong khi thêm vào giỏ hàng',
+                        text: 'Vui lòng thử lại!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+            return true;
+        });
+    });
+
+
+    </script>
+
+
+
+    <script>
+        $(function () {
+            $('a[data-category]').click(function () {
+                var category = $(this).data('category');
+                var checkbox = $('input[name=category][value="' + category + '"]');
+
+                $('input[name=category]').removeAttr('checked');
+
+                if (!checkbox.prop('checked')) {
+                    checkbox.prop('checked', true);
+                }
+
+                checkbox.closest('form').submit();
+                return false;
+            });
+        });
+        $(document).ready(function () {
+            $('input[name="category"]').on('change', function () {
+                var category = $(this).val();
+                $('a[data-category="' + category + '"]').toggleClass('selected', this.checked);
+            });
+        });
+
+
+        $(function () {
+            $('a[data-publisher]').click(function () {
+                var publisher = $(this).data('publisher');
+                var checkbox = $('input[name=nxb][value="' + publisher + '"]');
+
+                $('input[name=nxb]').removeAttr('checked');
+
+                if (!checkbox.prop('checked')) {
+                    checkbox.prop('checked', true);
+                }
+
+                checkbox.closest('form').submit();
+                return false;
+            });
+        });
+
+        $(document).ready(function () {
+            $('input[name="nxb"]').on('change', function () {
+                var publisher = $(this).val();
+                $('a[data-publisher="' + publisher + '"]').toggleClass('selected', this.checked);
+            });
+        });
+
+
+
+        $(function () {
+            $('a[data-min-price][data-max-price]').click(function () {
+                var minPrice = $(this).data('min-price');
+                var maxPrice = $(this).data('max-price');
+
+                $('a[data-min-price][data-max-price]').removeClass('selected');
+
+                $(this).toggleClass('selected');
+
+                $('input[name=minPrice]').val(minPrice);
+                $('input[name=maxPrice]').val(maxPrice);
+                $(this).closest('form').submit();
+                return false;
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,155 @@
+﻿@model MaleFashion.Models.BaiViet  
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>General Form</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">General Form</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @using (Html.BeginForm("Index", "NewArticles", FormMethod.Post, new { enctype = "multipart/form-data", @style = "display: contents;" }))
+            {
+                <!-- left column -->
+                <div class="col-md-8">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Thông tin chính</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TenBV, new { @class = "control-label" })
+                                @Html.EditorFor(model => model.TenBV, new { htmlAttributes = new { @class = "form-control", @placeholder = "Tên bài viết tối đa 50 ký tự" } })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NoiDungTT, new { @class = "control-label" })
+                                @Html.TextAreaFor(model => model.NoiDungTT, new { @class = "form-control", @rows = 5, @style = "height: 110px;", @placeholder = "Nội dung tóm tắt không dài quá 100 ký tự" })
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.NgayDang, new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.NgayDang, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MaTK, new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.MaTK, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.LuotXem, new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.LuotXem, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+                    <!-- /.card-body -->
+
+
+
+                </div>
+                <!-- /.card -->
+
+
+
+                <!--/.col (left) -->
+                <!-- right column -->
+                <div class="col-md-4">
+                    <!-- general form elements disabled -->
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Hình đại diện</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="form-group">
+                                <img src="~/img/blog/@ViewBag.Thumb" class="img-fluid" />
+                                <label for="exampleInputFile">File input</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="imgUpload" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="">Upload</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!--/.col (right) -->
+
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Nôi dung bài viết</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+
+                        <div class="card-body">
+                            @Html.TextAreaFor(x => x.NoiDung, new { @class = "form-control", @placeholder = "Nội dung tóm tắt không dài quái 100 ký tự", @style = "height: 500px;" })
+
+                        </div>
+                        <!-- /.card-body -->
+
+
+
+                    </div>
+                    <!-- /.card -->
+
+
+                </div>
+                <!--/.col (left) -->
+                <div class="col-md-12 right">
+                    <div class="card-footer" style="float:right;">
+                        <button type="submit" class="btn btn-primary ">Submit</button>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->

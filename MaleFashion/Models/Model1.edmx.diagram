@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d09e660c6c054ca684f7c08f7d60ff62" Name="Diagram1">
+        <EntityTypeShape EntityType="QLTHOITRANGModel.BaiViet" Width="1.5" PointX="10.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTHOITRANGModel.CTDonHang" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTHOITRANGModel.DonDatHang" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTHOITRANGModel.KhachHang" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTHOITRANGModel.LienHe" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTHOITRANGModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTHOITRANGModel.PhanQuyen" Width="1.5" PointX="5.875" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTHOITRANGModel.SanPham" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTHOITRANGModel.TaiKhoan" Width="1.5" PointX="8" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTHOITRANGModel.TheLoai" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="QLTHOITRANGModel.FK_TAIKHOAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLTHOITRANGModel.FK_DONDATHANG" ManuallyRouted="false" />
+        <AssociationConnector Association="QLTHOITRANGModel.FK_SANPHAM" ManuallyRouted="false" />
+        <AssociationConnector Association="QLTHOITRANGModel.FK_KHACHHANG" ManuallyRouted="false" />
+        <AssociationConnector Association="QLTHOITRANGModel.FK_NHACUNGCAP" ManuallyRouted="false" />
+        <AssociationConnector Association="QLTHOITRANGModel.FK_PHANQUYEN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLTHOITRANGModel.FK_THELOAI" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

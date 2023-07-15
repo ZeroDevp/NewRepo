@@ -1,0 +1,42 @@
+﻿@model MaleFashion.Models.LienHe
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Bạn có chắc muốn xóa không?</h3>
+<div>
+    <h4>Contact</h4>
+    <hr />
+    <table class="table table-striped">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.HoTen)</th>
+            <td>@Html.DisplayFor(model => model.HoTen)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.EMAIL)</th>
+            <td>@Html.DisplayFor(model => model.EMAIL)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.NoiDung)</th>
+            <td>@Html.DisplayFor(model => model.NoiDung)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.NgayGui)</th>
+            <td>@Html.DisplayFor(model => model.NgayGui)</td>
+        </tr>
+    </table>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}

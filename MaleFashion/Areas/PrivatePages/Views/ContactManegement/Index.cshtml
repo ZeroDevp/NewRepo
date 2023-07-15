@@ -1,0 +1,193 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<MaleFashion.Models.LienHe>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>DataTables</h1>
+
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">DataTables</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span>
+                        <a href="~/Contact/Index" class="btn btn-primary">Create New</a>
+
+                    </span>
+
+
+                </div>
+                <div class="wrapper">
+                    <nav class=" navbar navbar-expand navbar-white navbar-light">
+                        @using (Html.BeginForm("Index", "ContactManagement", FormMethod.Get, new { @class = "form-inline ml-3" }))
+                        {
+                            <div class="input-group input-group-sm" style="align-items:center;">
+                                <span>Tìm sản phẩm: </span>
+                                <input type="text" class="form-control form-control-navbar" placeholder="Search" name="search" value="@ViewBag.search" aria-label="Search">
+                                <div class="input-group-append ">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </nav>
+                </div>
+
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th>Nội dung</th>
+                                <th>Ngày gửi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@item.HoTen</td>
+                                <td>@item.EMAIL</td>
+                                <td>@item.NoiDung</td>
+                                <td>@item.NgayGui</td>
+
+                                @*đoạn code dưới bị lỗi*@
+                                @*<td>@item.NgayGui.ToString("hh:mm [dd/MM/yyyy]")</td>*@
+
+                                @* đoạn code dưới có thể sử dụng được *@
+                                @*<td>@item.NgayGui.Value.ToString("hh:mm dd/MM/yyyy")</td>*@
+
+                                <td style="text-align: center; vertical-align: middle;">
+                                    <div class="btn-group">
+                                        <!-- Edit -->
+                                        <a href="@Url.Action("Edit", new { id = item.MaLH })" class="btn btn-primary btn-sm p-2 m-1">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </a>
+
+                                        <!-- Details -->
+                                        <a href="@Url.Action("Details", new { id = item.MaLH })" class="btn btn-success btn-sm p-2 m-1">
+                                            <i class="fa fa-info-circle"></i> Details
+                                        </a>
+
+                                        <!-- Delete -->
+                                        <a href="@Url.Action("Delete", new { id = item.MaLH})" class="btn btn-danger btn-sm p-2 m-1">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th>Nội dung</th>
+                                <th>Ngày gửi</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+
+
+                    <div class="my-paginator">
+                        <div class="my-page-count">@string.Format("Page {0} of {1}", Model.PageNumber, Model.PageCount)</div>
+                        <div class="my-pagination">
+                            @Html.PagedListPager(Model, page => Url.Action("Index", "Product", new { page }), new PagedListRenderOptions
+                            {
+                                DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+                                DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+                                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                                DisplayPageCountAndCurrentLocation = false,
+                                MaximumPageNumbersToDisplay = 5,
+                                LinkToFirstPageFormat = "First",
+                                LinkToLastPageFormat = "Last",
+                                ContainerDivClasses = new[] { "pagination-container", "dataTables_paginate", "paging_simple_numbers" },
+                                LiElementClasses = new[] { "paginate_button", "page-item" },
+                                ClassToApplyToFirstListItemInPager = "previous",
+                                ClassToApplyToLastListItemInPager = "next",
+                                LinkToPreviousPageFormat = "Previous",
+                                LinkToNextPageFormat = "Next",
+                                FunctionToTransformEachPageLink = (li, a) =>
+                                {
+                                    a.AddCssClass("page-link");
+                                    li.InnerHtml = a.ToString();
+                                    return li;
+                                }
+                            })
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+<style>
+    .my-paginator {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .my-page-count {
+        margin-left: 20px;
+    }
+
+    .my-pagination {
+        margin-right: 20px;
+    }
+
+        .my-pagination ul {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .my-pagination li {
+            list-style: none;
+        }
+
+            .my-pagination li a {
+                text-decoration: none;
+                color: #333;
+                margin: 0;
+            }
+</style>
+

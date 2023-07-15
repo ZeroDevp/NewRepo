@@ -1,0 +1,80 @@
+﻿@model MaleFashion.Models.SanPham
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="text-align:center">Delete</h1>
+
+<h3>Bạn có muốn xóa sản phẩm này không?</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Thuộc tính</th>
+            <th>Dữ liệu</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.TenSP)</td>
+            <td>@Html.DisplayFor(model => model.TenSP)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.GiaBan)</td>
+            <td>@Html.DisplayFor(model => model.GiaBan)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.GiamGia)</td>
+            <td>@Html.DisplayFor(model => model.GiamGia)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Mota)</td>
+            <td>@Html.DisplayFor(model => model.Mota)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.HinhSP)</td>
+            <td>@Html.DisplayFor(model => model.HinhSP)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.NgayCapNhat)</td>
+            <td>@Html.DisplayFor(model => model.NgayCapNhat)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.TheLoai.TenTL)</td>
+            <td>@Html.DisplayFor(model => model.TheLoai.TenTL)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.NhaCungCap.TenNCC)</td>
+            <td>@Html.DisplayFor(model => model.NhaCungCap.TenNCC)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.BanChay)</td>
+            <td>@Html.DisplayFor(model => model.BanChay)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Duyet)</td>
+            <td>@Html.DisplayFor(model => model.Duyet)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.PhoBien)</td>
+            <td>@Html.DisplayFor(model => model.PhoBien)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.LuotXem)</td>
+            <td>@Html.DisplayFor(model => model.LuotXem)</td>
+        </tr>
+
+    </tbody>
+</table>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" />
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-success" })
+    </div>
+}
+

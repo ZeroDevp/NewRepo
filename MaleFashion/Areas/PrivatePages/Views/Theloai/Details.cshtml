@@ -1,0 +1,28 @@
+﻿@model MaleFashion.Models.TheLoai
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Thuộc tính</th>
+            <th>Dữ liệu</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.TenTL)</td>
+            <td>@Html.DisplayFor(model => model.TenTL)</td>
+        </tr>
+
+
+    </tbody>
+</table>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaTL }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

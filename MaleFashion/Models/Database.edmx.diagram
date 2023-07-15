@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f52f0b18ebf241538ed71d65ac61d349" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.BaiViet" Width="1.5" PointX="10.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CTDonHang" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DonDatHang" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.KhachHang" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LienHe" Width="1.5" PointX="7.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.NhaCungCap" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PhanQuyen" Width="1.5" PointX="5.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SanPham" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TaiKhoan" Width="1.5" PointX="8" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TheLoai" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_TAIKHOAN" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_DONDATHANG" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SANPHAM" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_KHACHHANG" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_NHACUNGCAP" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PHANQUYEN" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_THELOAI" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

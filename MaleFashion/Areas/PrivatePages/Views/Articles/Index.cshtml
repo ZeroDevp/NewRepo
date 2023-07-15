@@ -1,0 +1,207 @@
+﻿@using MaleFashion.Models;
+@using PagedList.Mvc;
+@using PagedList;
+@model PagedList.IPagedList<MaleFashion.Models.BaiViet>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+    var ds = ViewData["ListPosts"] as IPagedList<BaiViet>;
+    var routeValues = new System.Web.Routing.RouteValueDictionary(Request.QueryString);
+}
+
+
+
+<style>
+    form {
+        display: inline
+    }
+</style>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Danh sách bài viết</h1>
+
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Bài viết</a></li>
+                    <li class="breadcrumb-item active">Danh sách bài viết</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span>
+                        <a href=" @Url.Action("Index", "NewArticles")" class="btn btn-primary">Create New</a>
+                    </span>
+
+
+                </div>
+                <div class="wrapper">
+                    <nav class=" navbar navbar-expand navbar-white navbar-light">
+                        @using (Html.BeginForm("Index", "Articles", FormMethod.Get, new { @class = "form-inline ml-3" }))
+                        {
+                            <div class="input-group input-group-sm" style="align-items:center;">
+                                <span>Tìm sản phẩm: </span>
+                                <input type="text" class="form-control form-control-navbar" placeholder="Search" name="search" value="@ViewBag.search" aria-label="Search">
+                                <div class="input-group-append ">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </nav>
+                </div>
+
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Tên bài viết</th>
+                                <th>Ngày đăng bài</th>
+                                <th>Họ tên</th>
+                                <th>Loại tin</th>
+                                <th>Kiểm duyệt</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ds)
+                            {
+                                <tr>
+                                    <td width="40%">@item.TenBV</td>
+                                    <td>@item.NgayDang.Value.ToString("hh:mm [dd/MM/yyyy]")</td>
+                                    <td>@item.TaiKhoan.HoTen</td>
+                                    <td>@item.LoaiTin</td>
+                                    <td>@item.DaDuyet</td>
+
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <div class="btn-group">
+                                            <!-- Edit -->
+                                            @using (Html.BeginForm("Active", "Articles" ))
+                                            {
+                                                <input type="hidden" name="id" value="@item.MaBV" />
+                                                <button type="submit" class="btn btn-success btn-sm p-2 m-1">@ViewBag.tdCuaNut</button>
+                                            }
+
+
+                                            <!-- Details -->
+                                            <a href="@Url.Action("Edit","Articles", new { id = item.MaBV })" class="btn btn-success btn-sm p-2 m-1">
+                                                <i class="fa fa-info-circle"></i> Sửa nội dung
+                                            </a>
+
+                                            @using (Html.BeginForm("Detele", "Articles"))
+                                            {
+                                                <input type="hidden" name="id" value="@item.MaBV" />
+                                                <button type="submit" class="btn btn-danger btn-sm p-2 m-1">Xóa</button>
+                                            }
+                                            <!-- Delete -->
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                        @*<tfoot>
+                            <tr>
+                                <th>Tên bài viết</th>
+                                <th>Ngày đăng bài</th>
+                                <th>Họ tên</th>
+                                <th>Loại tin</th>
+                                <th>Kiểm duyệt</th>
+                            </tr>
+                        </tfoot>*@
+                    </table>
+
+
+
+                    <div class="my-paginator">
+                        <div class="my-page-count">@string.Format("Page {0} of {1}", ds.PageNumber, ds.PageCount)</div>
+                        <div class="my-pagination">
+                            @Html.PagedListPager(ds, page => Url.Action("Index", "Articles", new RouteValueDictionary { { "page", page }, { "IsActive", Request.QueryString["IsActive"] } }),
+                           new PagedListRenderOptions
+                           {
+
+                               DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+                               DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+                               DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                               DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                               DisplayPageCountAndCurrentLocation = false,
+                               MaximumPageNumbersToDisplay = 5,
+                               LinkToFirstPageFormat = "First",
+                               LinkToLastPageFormat = "Last",
+                               ContainerDivClasses = new[] { "pagination-container", "dataTables_paginate", "paging_simple_numbers" },
+                               LiElementClasses = new[] { "paginate_button", "page-item" },
+                               ClassToApplyToFirstListItemInPager = "previous",
+                               ClassToApplyToLastListItemInPager = "next",
+                               LinkToPreviousPageFormat = "Previous",
+                               LinkToNextPageFormat = "Next",
+                               FunctionToTransformEachPageLink = (li, a) =>
+                               {
+                                   a.AddCssClass("page-link");
+                                   li.InnerHtml = a.ToString();
+                                   return li;
+                               }
+                           })
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+<style>
+    .my-paginator {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .my-page-count {
+        margin-left: 20px;
+    }
+
+    .my-pagination {
+        margin-right: 20px;
+    }
+
+        .my-pagination ul {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .my-pagination li {
+            list-style: none;
+        }
+
+            .my-pagination li a {
+                text-decoration: none;
+                color: #333;
+                margin: 0;
+            }
+</style>

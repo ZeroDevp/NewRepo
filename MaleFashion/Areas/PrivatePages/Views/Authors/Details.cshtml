@@ -1,0 +1,43 @@
+﻿@model MaleFashion.Models.NhaCungCap
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Thuộc tính</th>
+            <th>Dữ liệu</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.TenNCC)</td>
+            <td>@Html.DisplayFor(model => model.TenNCC)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.SDT)</td>
+            <td>@Html.DisplayFor(model => model.SDT)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.DiaChi)</td>
+            <td>@Html.DisplayFor(model => model.DiaChi)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Mota)</td>
+            <td>@Html.DisplayFor(model => model.Mota)</td>
+        </tr>
+
+
+    </tbody>
+</table>
+
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaNCC }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
